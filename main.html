@@ -13,6 +13,32 @@
       
       <!-- solution end -->
     </main>
-    <script src="./script.js"></script>
+    <script>
+      const main = document.querySelector('main');
+      let imageClasses = ['img1', 'img2', 'img3', 'img4', 'img5', 'img1']; // img1 is the duplicate
+
+      function shuffle(array) {
+          var currentIndex = array.length, temporaryValue, randomIndex;
+
+          while (0 !== currentIndex) {
+              randomIndex = Math.floor(Math.random() * currentIndex);
+              currentIndex -= 1;
+
+              temporaryValue = array[currentIndex];
+              array[currentIndex] = array[randomIndex];
+              array[randomIndex] = temporaryValue;
+          }
+
+          return array;
+      }
+
+      imageClasses = shuffle(imageClasses);
+
+      imageClasses.forEach((imageClass) => {
+          const img = document.createElement('img');
+          img.classList.add(imageClass);
+          main.appendChild(img);
+      });
+    </script>
   </body>
 </html>
