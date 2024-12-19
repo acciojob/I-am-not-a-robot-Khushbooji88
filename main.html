@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Verification</title>
+    <title>Human Verification</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,117 +14,12 @@
         <img class="img3" src="image3.jpg" alt="Image 3">
         <img class="img4" src="image4.jpg" alt="Image 4">
         <img class="img5" src="image5.jpg" alt="Image 5">
-        <img class="img1" src="image1.jpg" alt="Image 1"> <!-- Duplicate Image -->
+        <img class="img1" src="image1.jpg" alt="Duplicate Image"> <!-- Duplicate Image -->
     </div>
     <button id="reset" style="display: none;">Reset</button>
     <button id="verify" style="display: none;">Verify</button>
     <p id="para" style="display: none;"></p>
 
     <script src="script.js"></script>
-	<script>
-		// Get DOM elements
-const images = document.querySelectorAll('img');
-const resetButton = document.getElementById('reset');
-const verifyButton = document.getElementById('verify');
-const para = document.getElementById('para');
-const hText = document.getElementById('h');
-
-// Variables to keep track of clicks
-let selectedImages = [];
-let clickedImageIndices = new Set();
-
-// State management
-let state = 1; // 1: Initial state, 2: Image clicked, 3: Both images clicked, 4: Verified
-
-// Randomly shuffle images
-function shuffleImages() {
-    let imageArray = Array.from(images);
-    let randomIndex = Math.floor(Math.random() * 5);
-    // Randomly choose one image to repeat
-    let repeatedImage = imageArray[randomIndex];
-    let duplicate = repeatedImage.cloneNode(true);
-    imageArray.push(duplicate);
-
-    // Shuffle all images
-    imageArray.sort(() => Math.random() - 0.5);
-
-    // Reassign images back to their positions
-    images.forEach((img, idx) => {
-        img.src = imageArray[idx].src;
-        img.className = imageArray[idx].className; // Reset classes
-    });
-}
-
-// Image click event handler
-function handleImageClick(event) {
-    const image = event.target;
-
-    // If the image is already clicked, ignore further clicks
-    if (clickedImageIndices.has(image)) {
-        return;
-    }
-
-    selectedImages.push(image);
-    clickedImageIndices.add(image);
-
-    if (state === 1) {
-        // State 2: User clicked at least one tile
-        state = 2;
-        resetButton.style.display = 'block';
-        hText.innerText = 'Please click on the identical tiles to verify that you are not a robot.';
-    }
-
-    if (selectedImages.length === 2) {
-        // State 3: User clicked both images
-        state = 3;
-        // Only show the verify button when 2 images are clicked
-        verifyButton.style.display = 'block';
-    }
-
-    // Disable further clicks until verification
-    if (state === 3) {
-        images.forEach(img => img.removeEventListener('click', handleImageClick));
-    }
-}
-
-// Reset the game to the initial state
-function resetGame() {
-    state = 1;
-    selectedImages = [];
-    clickedImageIndices.clear();
-    resetButton.style.display = 'none';
-    verifyButton.style.display = 'none';
-    para.style.display = 'none';
-    hText.innerText = 'Please click on the identical tiles to verify that you are not a robot.';
-    
-    // Re-enable image click listeners
-    images.forEach(img => img.addEventListener('click', handleImageClick));
-
-    shuffleImages();
-}
-
-// Verify the selected tiles
-function verifySelection() {
-    if (selectedImages[0].src === selectedImages[1].src) {
-        para.style.display = 'block';
-        para.innerText = 'You are a human. Congratulations!';
-    } else {
-        para.style.display = 'block';
-        para.innerText = 'We can\'t verify you as a human. You selected the non-identical tiles.';
-    }
-
-    // Disable further interactions
-    verifyButton.style.display = 'none';
-}
-
-// Event listeners
-resetButton.addEventListener('click', resetGame);
-verifyButton.addEventListener('click', verifySelection);
-
-// Initialize game
-shuffleImages();
-images.forEach(img => img.addEventListener('click', handleImageClick));
-
-	</script>
 </body>
 </html>

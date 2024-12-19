@@ -1,43 +1,55 @@
-/* Assuming you already have styles for .img1, .img2, .img3, .img4, .img5 */
+/* Basic styles for images and buttons */
 .image-container {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid #ddd;
+    border-radius: 8px;
 }
 
 button {
-    margin-top: 10px;
+    margin-top: 20px;
     padding: 10px 20px;
     background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 button:hover {
     background-color: #45a049;
 }
 
-p {
-    margin-top: 20px;
-    font-size: 1.2em;
-    color: #333;
-}
-
-#reset {
+button#reset {
     background-color: #f44336;
 }
 
-#reset:hover {
+button#reset:hover {
     background-color: #da190b;
 }
 
-img {
-    width: 100px;
-    height: 100px;
-    cursor: pointer;
-    object-fit: cover;
+#para {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+#verify {
+    background-color: #008CBA;
+}
+
+#verify:hover {
+    background-color: #007bb5;
 }
 
 
