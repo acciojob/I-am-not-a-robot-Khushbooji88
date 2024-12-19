@@ -10,35 +10,92 @@
   <body>
     <main>
       <!-- solution start -->
+		<p id="message"></p>
+		
       
       <!-- solution end -->
     </main>
     <script>
-      const main = document.querySelector('main');
-      let imageClasses = ['img1', 'img2', 'img3', 'img4', 'img5', 'img1']; // img1 is the duplicate
+  const main = document.querySelector('main');
+  let imageClasses = ['img1', 'img2', 'img3', 'img4', 'img5', 'img1']; // img1 is the duplicate
 
-      function shuffle(array) {
-          var currentIndex = array.length, temporaryValue, randomIndex;
+  function shuffle(array) {
+      var currentIndex = array.length, temporaryValue, randomIndex;
 
-          while (0 !== currentIndex) {
-              randomIndex = Math.floor(Math.random() * currentIndex);
-              currentIndex -= 1;
+      while (0 !== currentIndex) {
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex -= 1;
 
-              temporaryValue = array[currentIndex];
-              array[currentIndex] = array[randomIndex];
-              array[randomIndex] = temporaryValue;
-          }
-
-          return array;
+          temporaryValue = array[currentIndex];
+          array[currentIndex] = array[randomIndex];
+          array[randomIndex] = temporaryValue;
       }
 
-      imageClasses = shuffle(imageClasses);
+      return array;
+  }
 
+  imageClasses = shuffle(imageClasses);
+
+  imageClasses.forEach((imageClass) => {
+      const img = document.createElement('img');
+      img.classList.add(imageClass);
+      main.appendChild(img);
+  });
+
+  let selectedImages = [];
+  const images = document.querySelectorAll('img');
+
+  images.forEach((img) => {
+      img.addEventListener('click', (event) => {
+          if (selectedImages.length < 2) {
+              img.classList.add('selected');
+              selectedImages.push(img);
+          }
+
+          if (selectedImages.length === 2) {
+              // Display 'Verify' button
+              verifyButton.style.display = 'block';
+          }
+      });
+  });
+
+  const message = document.querySelector('#message');
+  const verifyButton = document.querySelector('#verify');
+  const resetButton = document.querySelector('#reset');
+
+  verifyButton.addEventListener('click', () => {
+      if (selectedImages[0].className === selectedImages[1].className) {
+          // Display 'Human' message
+          message.textContent = "You are a human. Congratulations!";
+      } else {
+          // Display 'Robot' message
+          message.textContent = "We can't verify you as a human. You selected the non-identical tiles.";
+      }
+  });
+
+  resetButton.addEventListener('click', () => {
+      // Clear all selections
+      selectedImages = [];
+      images.forEach((img) => {
+          img.classList.remove('selected');
+      });
+
+      // Hide 'Verify' and 'Reset' buttons
+      verifyButton.style.display = 'none';
+      resetButton.style.display = 'none';
+
+      // Clear the message
+      message.textContent = "";
+
+      // Shuffle and display the images again
+      imageClasses = shuffle(imageClasses);
+      main.innerHTML = '';
       imageClasses.forEach((imageClass) => {
           const img = document.createElement('img');
           img.classList.add(imageClass);
           main.appendChild(img);
       });
-    </script>
+  });
+</script>
   </body>
 </html>

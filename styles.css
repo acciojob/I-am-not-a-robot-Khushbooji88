@@ -38,3 +38,26 @@ p {
 button {
   margin: 20px;
 }
+<button id="verify" style="display: none;">Verify</button>
+<button id="reset" style="display: none;">Reset</button>
+const verifyButton = document.querySelector('#verify');
+const resetButton = document.querySelector('#reset');
+if (selectedImages.length === 2) {
+    // Display 'Verify' button
+    verifyButton.style.display = 'block';
+}
+
+if (selectedImages.length >= 1) {
+    // Display 'Reset' button
+    resetButton.style.display = 'block';
+}
+
+verifyButton.addEventListener('click', () => {
+    if (selectedImages[0].className === selectedImages[1].className) {
+        // Display 'Human' message
+    } else {
+        // Display 'Robot' message
+    }
+});
+
+
